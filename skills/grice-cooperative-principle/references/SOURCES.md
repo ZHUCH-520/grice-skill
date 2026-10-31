@@ -28,5 +28,9 @@
 - Gricean Norms as a Basis for Effective Collaboration (2025) — https://arxiv.org/abs/2503.14484
 
 ## 核对说明
-- 次准则英文原文（含 “Make your conversational contribution such as is required, at the stage at which it occurs, by the accepted purpose or direction of the talk exchange in which you are engaged”）取自 SEP、百度百科与 Grice 摘要页的一致引文；未直接打开 1975 年原文 PDF。
-- Grice 的四种不守准则方式（violate / opt out / clash / flout）和“质>量”的冲突解法：前四种来自 Grice 原文及 SEP；“质>量”等优先级是本 skill 为助手场景人为设定，不是 Grice 的主张。
+- 次准则英文原文已对照 Grice 1975 年 Cole & Morgan 版第 45–47 页（sfu.ca 存放的节选：https://www.sfu.ca/~jeffpell/Cogs300/GriceLogicConvers75.pdf ）逐条核对，包括合作原则原句、四个范畴、Quality 与 Manner 的上位准则、第二条数量准则「disputable」的说明、各准则紧迫程度不同的说明，以及「准则以信息交换为目的过窄，需要推广」的说明。
+- 推荐信示例（Mr. X's command of English is excellent…）不在上述页内；其英文原句和 Grice 的解释，已在 Wikipedia、Coppock 讲义和 Libretexts（标注 1975 年版第 52 页）三处转引中核对一致，未打开原文扫描页。
+- 论文出版载体：原文页眉为 Cole & Morgan (eds.), Syntax and Semantics 3: Speech Acts, 1975, pp. 41–58；SEP 参考文献另列 Davidson & Harman (eds.), The Logic of Grammar, 1975, pp. 64–75。
+- 中文译法（数量准则、质量准则、关系准则、方式准则；次准则的中文表述）参照百度百科及上列中文来源；教材中另有「量的准则」「关联准则」等写法。索振羽《语用学教程》（北京大学出版社，2004）只读到目录和网上读书笔记，未读原书；何自然《语用学概论》未能获取，未据其引用文字。
+- Grice 的四种不遵守准则的方式（violate / opt out / clash / flout）来自 Grice 原文及 SEP；“质量准则优先于数量准则”等冲突处理顺序，是本 skill 为助手场景设定的，不是 Grice 的主张。
+- SEP, "Paul Grice"（2026-06-19 修订）：https://plato.stanford.edu/entries/grice/ ，核对生卒年（1913–1988）和四类准则概述。

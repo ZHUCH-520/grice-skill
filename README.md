@@ -3,44 +3,57 @@
   各工具的目录和文档链接于 2026-10-31 逐个核对官方文档，来源见文末“资料来源”。
 -->
 
-# grice-skill · 让 AI 助手说话像靠谱的同事
+# grice-skill：格莱斯合作原则 Agent Skill
 
 **简体中文** | [English](#english)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Agent Skills](https://img.shields.io/badge/Agent%20Skills-SKILL.md-green)](https://agentskills.io)
 
-一个只管“怎么说话”的 skill，基于格莱斯（H. P. Grice）的合作原则：**说够、说真、说对题、说清楚。**
-装上以后，你的 AI 助手汇报工作时，不再“应该没问题”“部分通过”“已处理”地含糊过去。
+这是一个依据 H. P. 格莱斯（H. P. Grice）合作原则（Cooperative Principle）编写的 Agent Skill，用来规范 AI 助手回复和汇报时的表述。
+它不修改代码、命令或数据，只规定助手怎样回答、怎样汇报。
 
-**不装：**
+## 合作原则与四类准则
 
-> 部署完成。新版本已上线，监控正常。
+格莱斯在〈逻辑与会话〉（Logic and Conversation，1975）中提出合作原则：
 
-**装了：**
+> 在交谈的每一阶段，说出这场交谈公认的目的或方向所要求的话。
 
-> 新版本已部署，但“预热缓存”这一步超时失败（`warmup.sh` 退出码 124），缓存是冷的，首批请求会慢。监控只看了 2 分钟，没发现错误率上升。我可以重跑预热，要吗？
+他把这一原则的具体要求分为四类准则，每类下有若干次准则。下表中文据原文译出，术语参照通行的语用学教材。
 
-它不改代码，不改命令，不改数据，只管助手怎么回你的话。
-
-## 四条准则，各管一件事
-
-| 准则 | 一句话 | 助手该做的 |
+| 准则 | 次准则（格莱斯，1975） | 本 skill 对助手的要求 |
 |---|---|---|
-| **量** | 说够，别多说 | 答案放第一句；下一步要用的命令、路径、数字都在；复述和收尾总结删掉 |
-| **质** | 说真的 | 没亲眼看到证据，就写“未验证”；不知道就说不知道，不拿猜测补空 |
-| **关系** | 说对题 | 答你问的，不答邻近的；你的前提有错，第一句就指出来 |
-| **方式** | 说清楚 | 指代明确，时间带时区；“部分通过”这种会被读错的说法，补上边界 |
+| **数量准则**（Quantity） | ① 所说的话应包含当前交谈目的所需的信息。<br>② 所说的话不应包含超出需要的信息。 | 答案、结论、阻塞项放在第一句；读者下一步要用的命令、路径、数字都要给出；复述请求、过程叙述、收尾总结删去。 |
+| **质量准则**（Quality） | 上位准则：力求所说的话真实。<br>① 不说自知虚假的话。<br>② 不说缺乏足够证据的话。 | 本轮没有亲眼看到证据的结论，写作“未验证”；不知道的写作“不知道”，不用猜测补全。 |
+| **关系准则**（Relation） | 所说的话要相关。 | 回答被问的问题；用户的前提有误时，第一句指出。 |
+| **方式准则**（Manner） | 上位准则：清楚明白地说。<br>① 避免晦涩。② 避免歧义。<br>③ 简练（避免不必要的冗长）。④ 有条理。 | 指代明确，时间带时区；“部分通过”“已处理”这类会被读出更强含义的说法，补写边界。 |
 
-另外还有：会话含意对照表（“没发现问题”会被听成“已全部检查”）、准则冲突时谁优先（质 > 量）、
-交接给另一个助手时必须写清哪些事、发送前 8 条自检，以及 8 个“差 → 好”的对照例子。
-全部在 [`SKILL.md`](skills/grice-cooperative-principle/SKILL.md) 里，大约 220 行。
+几点说明：
+- 格莱斯自己指出，第二条数量准则有争议，其作用或可由关系准则达到。各准则的紧迫程度也不相同，违反质量准则比违反方式准则更严重。
+- 方式准则关心的是话怎么说，其余三类关心说了什么。
+- 合作原则最初用来解释会话含义（conversational implicature）：说话人没有明说、听者却能推出的意思。助手的回复同样会产生会话含义，例如“没发现问题”会被理解为“已全部检查”。
+
+## 一个例子（数量准则 ①）
+
+```text
+问：可以上线了吗？
+甲：迁移已运行，无报错。
+乙：无报错，但 2 张表被跳过，需补跑。
+注：甲省略上线所需的信息（数量准则 ①）。
+```
+
+甲所说属实，日志里确实没有报错；但读者会把“无报错”理解为“已全部完成”，据此上线。
+
+## skill 包含什么
+
+[`SKILL.md`](skills/grice-cooperative-principle/SKILL.md)（约 220 行）包含：四类准则及对助手的具体做法；会话含义对照表；违反、退出、冲突、故意违反四种“不遵守准则”的处理；准则冲突时的处理顺序；助手之间交接的模板；发送前的 8 条自检；8 个“差 → 好”的对照例子。
+其中冲突处理顺序（质量准则优先于数量准则等）是本 skill 针对助手场景设定的，不是格莱斯的主张。
 
 ## 安装
 
-### 最简单的办法：让你的 AI 助手自己装
+### 方式一：让 AI 助手自行安装
 
-打开你平时用的 AI 编程助手（Claude Code、Codex、Cursor、Trae、CodeBuddy、通义灵码、Qoder……都行），发这一句：
+打开你平时用的 AI 编程助手（Claude Code、Codex、Cursor、Trae、CodeBuddy、通义灵码、Qoder 等），发这一句：
 
 ```text
 帮我安装这个 skill：https://github.com/ZHUCH-520/grice-skill/tree/main/skills/grice-cooperative-principle
@@ -52,12 +65,12 @@
 你现在装了哪些 skill？有没有 grice-cooperative-principle？
 ```
 
-它能说出这个名字，就装好了。之后你什么都不用做，助手会在回复和汇报时自己用。
+列表里有这个名字，即安装成功。之后无需额外操作，助手会在回复和汇报时自动使用。
 想手动调用的话，在 Claude Code、Cursor 等支持斜杠命令的工具里输入 `/grice-cooperative-principle`；Codex 里输入 `$grice-cooperative-principle`。
 
-> 助手装不上，多半是它不能联网，或者打不开 GitHub。往下看“打不开 GitHub”。
+> 助手无法安装，通常是因为它不能联网，或无法访问 GitHub。见下文“打不开 GitHub”。
 
-### 用命令行装
+### 方式二：用命令行安装
 
 装进你电脑上已有的各种助手（会列出检测到的工具让你勾选）：
 
@@ -73,27 +86,27 @@ npx skills add ZHUCH-520/grice-skill
 gemini skills install https://github.com/ZHUCH-520/grice-skill.git --path skills/grice-cooperative-principle
 ```
 
-### 各工具怎么装（手动，核对过官方文档）
+### 方式三：手动复制（目录已按官方文档核对）
 
 下面的目录，都是**各工具官方文档写明的** skill 目录。把 `skills/grice-cooperative-principle/` 整个文件夹复制进去就行，
 文件夹名保持 `grice-cooperative-principle`。“用户级”对所有项目生效，“项目级”只对当前项目生效。
 
 | 工具 | 原生支持 SKILL.md | 用户级目录 | 项目级目录 |
 |---|---|---|---|
-| Claude Code | ✅ | `~/.claude/skills/` | `.claude/skills/` |
-| OpenAI Codex CLI | ✅ | `~/.agents/skills/` | `.agents/skills/` |
-| Cursor | ✅ | `~/.cursor/skills/` 或 `~/.agents/skills/` | `.cursor/skills/` 或 `.agents/skills/` |
-| Gemini CLI | ✅ | `~/.gemini/skills/` 或 `~/.agents/skills/` | `.gemini/skills/` 或 `.agents/skills/` |
-| **Trae（国际版）** | ✅ | `~/.trae/skills/` | `.trae/skills/` |
-| **Trae（中文版）** | ✅ | `~/.trae-cn/skills/` | `.trae/skills/` |
-| **CodeBuddy（腾讯）** | ✅ | `~/.codebuddy/skills/` | `.codebuddy/skills/` |
-| **Qoder（阿里）IDE** | ✅ | `~/.qoder/skills/` | `.qoder/skills/` |
-| **Qoder CN CLI** | ✅（项目级） | 文档未列出 | `.qoder/skills/` |
-| **通义灵码 / Lingma（Qoder CN IDE）** | ✅ | `~/.lingma/skills/` | `.lingma/skills/` |
-| **Kimi Code CLI（月之暗面）** | ✅ | `~/.kimi-code/skills/` 或 `~/.agents/skills/` | `.kimi-code/skills/` 或 `.agents/skills/` |
-| **Qwen Code（通义千问）** | ✅ | `~/.qwen/skills/` 或 `~/.agents/skills/` | `.qwen/skills/` 或 `.agents/skills/` |
-| **DeepSeek Harness（`dsh`）** | ✅ | `~/.agents/skills/`（见下方说明 ¹） | `.dsh/skills/` 或 `.agents/skills/` |
-| **智谱 CodeGeeX** | ❓ 官方文档里没找到 | — | 用下面的“规则文件版” |
+| Claude Code | 是 | `~/.claude/skills/` | `.claude/skills/` |
+| OpenAI Codex CLI | 是 | `~/.agents/skills/` | `.agents/skills/` |
+| Cursor | 是 | `~/.cursor/skills/` 或 `~/.agents/skills/` | `.cursor/skills/` 或 `.agents/skills/` |
+| Gemini CLI | 是 | `~/.gemini/skills/` 或 `~/.agents/skills/` | `.gemini/skills/` 或 `.agents/skills/` |
+| **Trae（国际版）** | 是 | `~/.trae/skills/` | `.trae/skills/` |
+| **Trae（中文版）** | 是 | `~/.trae-cn/skills/` | `.trae/skills/` |
+| **CodeBuddy（腾讯）** | 是 | `~/.codebuddy/skills/` | `.codebuddy/skills/` |
+| **Qoder（阿里）IDE** | 是 | `~/.qoder/skills/` | `.qoder/skills/` |
+| **Qoder CN CLI** | 是（项目级） | 文档未列出 | `.qoder/skills/` |
+| **通义灵码 / Lingma（Qoder CN IDE）** | 是 | `~/.lingma/skills/` | `.lingma/skills/` |
+| **Kimi Code CLI（月之暗面）** | 是 | `~/.kimi-code/skills/` 或 `~/.agents/skills/` | `.kimi-code/skills/` 或 `.agents/skills/` |
+| **Qwen Code（通义千问）** | 是 | `~/.qwen/skills/` 或 `~/.agents/skills/` | `.qwen/skills/` 或 `.agents/skills/` |
+| **DeepSeek Harness（`dsh`）** | 是 | `~/.agents/skills/`（见下方说明 ¹） | `.dsh/skills/` 或 `.agents/skills/` |
+| **智谱 CodeGeeX** | 未找到 | — | 用下面的“规则文件版” |
 | **智谱 GLM / Z.ai** | 不是工具，是模型套餐 | 在 Claude Code、Cursor、Trae、Qoder 等里用 GLM，就按那些工具装 | |
 
 几点说明：
@@ -109,7 +122,7 @@ gemini skills install https://github.com/ZHUCH-520/grice-skill.git --path skills
 
 我核对的是各家文档里写的目录，**没有在每个工具里逐个实机跑过**。如果哪一行在你那里不灵，欢迎开 issue 告诉我。
 
-### 工具不支持 skill？用规则文件版
+### 方式四：工具不支持 skill 时，使用规则文件版
 
 没有 skill 功能的工具（或者你只想要一份轻量的），把 [`snippets/rules-snippet.md`](snippets/rules-snippet.md) 里那一段（约 10 行，中英都有）粘进它的规则文件。放哪个文件：
 
@@ -128,7 +141,7 @@ gemini skills install https://github.com/ZHUCH-520/grice-skill.git --path skills
 | 智谱 CodeGeeX | 官方文档里没找到对话规则文件。如果你在 CodeGeeX 里能设“自定义指令”，把那一段粘进去 |
 | 其他 | 找到“规则 / 记忆 / 自定义指令 / system prompt”，把那一段粘进去 |
 
-规则文件每次对话都会整段塞进上下文，所以那一版故意写短。想要含意对照表、冲突优先级和例子，用完整的 `SKILL.md`。
+规则文件每次对话都会整段载入上下文，所以这一版刻意写短。需要会话含义对照表、冲突处理顺序和例子的，使用完整的 `SKILL.md`。
 
 ### 打不开 GitHub
 
@@ -154,14 +167,15 @@ grice-skill/
 
 ## 说明与局限
 
-- skill 能让助手更守规矩，不能保证。助手有时仍会漏。发现了，就把那条回复发给它，说“这里违反了哪条准则”，它通常会改。
-- 格莱斯的原话只有四条准则和合作原则本身。**“质优先于量”等冲突优先级，是我为 AI 助手这个场景定的，不是格莱斯的主张。** 来源和这一区分，见 [`references/SOURCES.md`](skills/grice-cooperative-principle/references/SOURCES.md)。
-- 这个 skill 是中文写的，助手会按你对话用的语言回复。需要英文版的话，欢迎 PR。
-- 创作、闲聊类的回复，量和方式可以放宽，skill 里写明了。
+- skill 能让助手更守规矩，不能保证每次都做到。发现某条回复有问题，可以把它发给助手，指出违反了哪条准则，助手通常会改正。
+- 格莱斯的原文只有合作原则和四类准则。“质量准则优先于数量准则”等冲突处理顺序，是为 AI 助手场景设定的，不是格莱斯的主张。来源和这一区分见 [`references/SOURCES.md`](skills/grice-cooperative-principle/references/SOURCES.md)。
+- 合作原则预设交谈各方目标一致，对争辩、玩笑、礼貌等场景的解释力有限。skill 的 “边界” 一节说明了这一点。
+- skill 用中文写成，助手会按你对话使用的语言回复。需要英文版的，欢迎提交 PR。
+- 创作、闲聊类的回复，数量准则和方式准则可以放宽，skill 中已写明。
 
 ## 许可
 
-[MIT](LICENSE)。随便用，随便改，随便装进你的团队。
+[MIT](LICENSE)。可自由使用、修改和分发。
 
 ## 资料来源（各工具官方文档，2026-10-31 核对）
 
@@ -189,37 +203,52 @@ grice-skill/
 
 <a id="english"></a>
 
-# grice-skill · Make your AI assistant talk like a reliable colleague
+# grice-skill: an Agent Skill based on Grice's Cooperative Principle
 
-[简体中文](#grice-skill--让-ai-助手说话像靠谱的同事) | **English**
+[简体中文](#grice-skill格莱斯合作原则-agent-skill) | **English**
 
-A skill about *how* an assistant talks, built on H. P. Grice's Cooperative Principle: **say enough, say what's true, answer the question, be clear.**
-Once installed, your assistant stops saying "should be fine", "some tests passed" or "handled" and gives you something you can act on.
+An Agent Skill based on H. P. Grice's Cooperative Principle, for governing how an AI assistant words its replies and status reports.
+It changes nothing about your code, commands or data. It only specifies how the assistant answers and reports.
 
-**Without it:**
+## The Cooperative Principle and its four categories
 
-> Deployed. New version is live and monitoring looks normal.
+In "Logic and Conversation" (1975), Grice stated the principle as:
 
-**With it:**
+> Make your conversational contribution such as is required, at the stage at which it occurs, by the accepted purpose or direction of the talk exchange in which you are engaged.
 
-> The new version is deployed, but the "warm cache" step timed out (`warmup.sh`, exit code 124), so the cache is cold and the first requests will be slow. I only watched monitoring for 2 minutes and saw no error-rate increase. Want me to re-run the warm-up?
+He grouped the specific requirements into four categories, each with maxims and sub-maxims. The wording below follows Grice's text.
 
-It changes nothing about your code, commands or data. It only shapes how the assistant replies.
-
-## The four maxims
-
-| Maxim | In one line | What the assistant does |
+| Category | Maxims (Grice, 1975) | What this skill asks of the assistant |
 |---|---|---|
-| **Quantity** | Enough, not more | Answer first; include the command/path/number you need next; cut restating and closing summaries |
-| **Quality** | Only what's true | No evidence from this turn → "not verified". Don't know → say so, don't guess |
-| **Relation** | Answer the question | The asked question, not a neighbouring one; correct a wrong premise in the first sentence |
-| **Manner** | Be clear | Unambiguous references, times with a timezone, no weak wording that reads as something stronger |
+| **Quantity** | 1. Make your contribution as informative as is required (for the current purposes of the exchange).<br>2. Do not make your contribution more informative than is required. | Put the answer, conclusion or blocker first; include the command, path or number the reader needs next; drop restated requests, narrated process and closing summaries. |
+| **Quality** | Supermaxim: try to make your contribution one that is true.<br>1. Do not say what you believe to be false.<br>2. Do not say that for which you lack adequate evidence. | A conclusion without evidence from this turn is reported as "not verified". What the assistant does not know is reported as unknown, not filled in with a guess. |
+| **Relation** | Be relevant. | Answer the question that was asked. If the user's premise is wrong, say so in the first sentence. |
+| **Manner** | Supermaxim: be perspicuous.<br>1. Avoid obscurity of expression.<br>2. Avoid ambiguity.<br>3. Be brief (avoid unnecessary prolixity).<br>4. Be orderly. | Unambiguous references, times with a timezone. Weak wording such as "some tests passed" or "handled" invites a stronger reading, so state the boundary. |
 
-The skill also has an implicature table ("no issues found" is heard as "everything was checked"), an order of priority for clashes (quality > quantity), a handoff template for passing work to another agent, an 8-point pre-send check, and 8 before/after examples. See [`SKILL.md`](skills/grice-cooperative-principle/SKILL.md) (about 220 lines, written in Chinese; the assistant replies in the language you use).
+Notes:
+- Grice himself called the second Quantity maxim disputable, and said its effect might be secured by the Relation maxim. He also said the maxims differ in urgency: breaching Quality is worse than breaching Manner.
+- Manner concerns how something is said; the other three categories concern what is said.
+- The principle was introduced to explain conversational implicature: what a speaker conveys without stating it. An assistant's replies produce implicatures too; "no issues found" is heard as "everything was checked".
+
+## An example (Quantity, maxim 1)
+
+```text
+Q: Is it ready to go live?
+A: The migration ran with no errors.
+B: No errors, but 2 tables were skipped and need to be re-run.
+Note: A omits information needed for the decision (Quantity, maxim 1).
+```
+
+A's statement is true: the log shows no error. But the reader takes "no errors" to mean "everything completed" and goes live.
+
+## What the skill contains
+
+[`SKILL.md`](skills/grice-cooperative-principle/SKILL.md) (about 220 lines, written in Chinese; the assistant replies in the language you use) contains: the four categories with concrete behaviour for an assistant; an implicature table; how to treat the four ways of not observing a maxim (violate, opt out, clash, flout); an order of priority for clashes; a handoff template for passing work to another agent; an 8-point pre-send check; and 8 before/after examples.
+The order of priority for clashes (Quality over Quantity, and so on) was set for the assistant setting. It is not Grice's own claim.
 
 ## Install
 
-### Easiest: ask your assistant to install it
+### Option 1: ask your assistant to install it
 
 In Claude Code, Codex, Cursor, Trae, CodeBuddy, Qoder, Qwen Code, Kimi Code CLI or similar, say:
 
@@ -229,7 +258,7 @@ Install this skill for me: https://github.com/ZHUCH-520/grice-skill/tree/main/sk
 
 Then start a new conversation and ask "which skills do you have?". If `grice-cooperative-principle` is listed, you're done.
 
-### Command line
+### Option 2: command line
 
 ```bash
 npx skills add ZHUCH-520/grice-skill
@@ -241,11 +270,11 @@ This uses the generic [vercel-labs/skills](https://github.com/vercel-labs/skills
 gemini skills install https://github.com/ZHUCH-520/grice-skill.git --path skills/grice-cooperative-principle
 ```
 
-### Manual: copy the folder
+### Option 3: copy the folder
 
 Copy `skills/grice-cooperative-principle/` into the skills directory of your tool. The directories in the table above (Chinese section) come from each tool's official documentation, checked on 2026-10-31. Short version: Claude Code `~/.claude/skills/`, Codex / Cursor / Gemini CLI / Qwen Code / Kimi Code CLI `~/.agents/skills/` (also read by several others), Trae `~/.trae/skills/` (China edition `~/.trae-cn/skills/`), CodeBuddy `~/.codebuddy/skills/`, Qoder `~/.qoder/skills/`, Lingma `~/.lingma/skills/`, Qwen Code `~/.qwen/skills/`, DeepSeek Harness `.dsh/skills/` or `.agents/skills/` in the project. I checked the documented paths; I did not run every tool end to end.
 
-### No skill support? Use the rules snippet
+### Option 4: no skill support? Use the rules snippet
 
 Paste the block in [`snippets/rules-snippet.md`](snippets/rules-snippet.md) (about 10 lines, Chinese and English) into `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `QWEN.md`, `CODEBUDDY.md`, or the tool's rules directory (`.cursor/rules/`, `.trae/rules/`, `.qoder/rules/`, `.lingma/rules/`).
 
@@ -255,9 +284,9 @@ Copy the text of `SKILL.md` into a folder named `grice-cooperative-principle` in
 
 ## Notes
 
-- A skill makes an assistant more disciplined; it doesn't guarantee it. If a reply slips, quote it back and name the maxim it broke.
-- Grice himself gave the Cooperative Principle and four maxims. The conflict priority "quality beats quantity" is my own rule for AI assistants, not Grice's. See [`references/SOURCES.md`](skills/grice-cooperative-principle/references/SOURCES.md).
-- Creative writing and chit-chat relax Quantity and Manner; the skill says so.
+- A skill makes an assistant more disciplined; it does not guarantee it. If a reply slips, quote it back and name the maxim it broke.
+- Grice's text contains the Cooperative Principle and four categories of maxims. The conflict priority "Quality over Quantity" was set for AI assistants and is not Grice's claim. See [`references/SOURCES.md`](skills/grice-cooperative-principle/references/SOURCES.md).
+- The principle assumes the parties share a purpose, and explains argument, joking and politeness less well. Creative writing and chit-chat relax Quantity and Manner; the skill says so.
 
 ## License
 
