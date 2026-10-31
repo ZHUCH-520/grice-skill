@@ -10,16 +10,18 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Agent Skills](https://img.shields.io/badge/Agent%20Skills-SKILL.md-green)](https://agentskills.io)
 
-这是一个依据 H. P. 格莱斯（H. P. Grice）合作原则（Cooperative Principle）编写的 Agent Skill，用来规范 AI 助手回复和汇报时的表述。
+这是一个依据格莱斯合作原则（Cooperative Principle）编写的 Agent Skill，用来规范 AI 助手回复和汇报时的表述。
 它不修改代码、命令或数据，只规定助手怎样回答、怎样汇报。
 
-## 合作原则与四类准则
+## 格莱斯合作原则
 
-格莱斯在〈逻辑与会话〉（Logic and Conversation，1975）中提出合作原则：
+格莱斯（H. P. Grice，1913–1988；又译格赖斯）是英国语言哲学家。合作原则是他 1967 年在哈佛大学 William James 讲座中提出的，1975 年以〈逻辑与会话〉（Logic and Conversation）为题发表。
+
+这一理论设想：交谈各方被默认相互合作，认可某个共同的目的或方向。合作原则是这一设想的表述：
 
 > 在交谈的每一阶段，说出这场交谈公认的目的或方向所要求的话。
 
-他把这一原则的具体要求分为四类准则，每类下有若干次准则。下表中文据原文译出，术语参照通行的语用学教材。
+它由数量、质量、关系、方式四类准则具体化，每类下有若干次准则，最初用来解释会话含义。下表中文据原文译出，术语参照通行的语用学教材。
 
 | 准则 | 次准则（格莱斯，1975） | 本 skill 对助手的要求 |
 |---|---|---|
@@ -31,7 +33,7 @@
 几点说明：
 - 格莱斯自己指出，第二条数量准则有争议，其作用或可由关系准则达到。各准则的紧迫程度也不相同，违反质量准则比违反方式准则更严重。
 - 方式准则关心的是话怎么说，其余三类关心说了什么。
-- 合作原则最初用来解释会话含义（conversational implicature）：说话人没有明说、听者却能推出的意思。助手的回复同样会产生会话含义，例如“没发现问题”会被理解为“已全部检查”。
+- 会话含义（conversational implicature）指说话人没有明说、听者却能推出的意思。助手的回复同样会产生会话含义，例如“没发现问题”会被理解为“已全部检查”。
 
 ## 一个例子（数量准则 ①）
 
@@ -207,16 +209,18 @@ grice-skill/
 
 [简体中文](#grice-skill格莱斯合作原则-agent-skill) | **English**
 
-An Agent Skill based on H. P. Grice's Cooperative Principle, for governing how an AI assistant words its replies and status reports.
+An Agent Skill based on the Cooperative Principle, for governing how an AI assistant words its replies and status reports.
 It changes nothing about your code, commands or data. It only specifies how the assistant answers and reports.
 
-## The Cooperative Principle and its four categories
+## The Cooperative Principle
 
-In "Logic and Conversation" (1975), Grice stated the principle as:
+H. P. Grice (1913–1988) was a British philosopher of language. He proposed the Cooperative Principle in his 1967 William James Lectures at Harvard, and published it in 1975 as "Logic and Conversation".
+
+The theory assumes that the parties to a conversation are cooperating: they recognise some common purpose or direction. The principle states that assumption:
 
 > Make your conversational contribution such as is required, at the stage at which it occurs, by the accepted purpose or direction of the talk exchange in which you are engaged.
 
-He grouped the specific requirements into four categories, each with maxims and sub-maxims. The wording below follows Grice's text.
+It is made specific by four categories of maxims (Quantity, Quality, Relation, Manner), each with sub-maxims, and it was introduced to explain conversational implicature. The wording below follows Grice's text.
 
 | Category | Maxims (Grice, 1975) | What this skill asks of the assistant |
 |---|---|---|
@@ -228,7 +232,7 @@ He grouped the specific requirements into four categories, each with maxims and 
 Notes:
 - Grice himself called the second Quantity maxim disputable, and said its effect might be secured by the Relation maxim. He also said the maxims differ in urgency: breaching Quality is worse than breaching Manner.
 - Manner concerns how something is said; the other three categories concern what is said.
-- The principle was introduced to explain conversational implicature: what a speaker conveys without stating it. An assistant's replies produce implicatures too; "no issues found" is heard as "everything was checked".
+- Conversational implicature is what a speaker conveys without stating it. An assistant's replies produce implicatures too; "no issues found" is heard as "everything was checked".
 
 ## An example (Quantity, maxim 1)
 

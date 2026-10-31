@@ -29,8 +29,10 @@
 
 ## 核对说明
 - 次准则英文原文已对照 Grice 1975 年 Cole & Morgan 版第 45–47 页（sfu.ca 存放的节选：https://www.sfu.ca/~jeffpell/Cogs300/GriceLogicConvers75.pdf ）逐条核对，包括合作原则原句、四个范畴、Quality 与 Manner 的上位准则、第二条数量准则「disputable」的说明、各准则紧迫程度不同的说明，以及「准则以信息交换为目的过窄，需要推广」的说明。
+- 1967 年哈佛讲座：1975 年文章首页脚注写明文本取自 H. Paul Grice 1967 年在哈佛大学所做的 William James 讲座（"delivered at Harvard University in 1967"，见 https://web.media.mit.edu/~cynthiab/Readings/grice-75.pdf ）；商务印书馆 2024 年《言辞之道研究》（姜望琪、杜世洪译）的提要同样说明第一部分是 1967 年哈佛大学讲座的整理稿。
 - 推荐信示例（Mr. X's command of English is excellent…）不在上述页内；其英文原句和 Grice 的解释，已在 Wikipedia、Coppock 讲义和 Libretexts（标注 1975 年版第 52 页）三处转引中核对一致，未打开原文扫描页。
 - 论文出版载体：原文页眉为 Cole & Morgan (eds.), Syntax and Semantics 3: Speech Acts, 1975, pp. 41–58；SEP 参考文献另列 Davidson & Harman (eds.), The Logic of Grammar, 1975, pp. 64–75。
 - 中文译法（数量准则、质量准则、关系准则、方式准则；次准则的中文表述）参照百度百科及上列中文来源；教材中另有「量的准则」「关联准则」等写法。索振羽《语用学教程》（北京大学出版社，2004）只读到目录和网上读书笔记，未读原书；何自然《语用学概论》未能获取，未据其引用文字。
 - Grice 的四种不遵守准则的方式（violate / opt out / clash / flout）来自 Grice 原文及 SEP；“质量准则优先于数量准则”等冲突处理顺序，是本 skill 为助手场景设定的，不是 Grice 的主张。
-- SEP, "Paul Grice"（2026-06-19 修订）：https://plato.stanford.edu/entries/grice/ ，核对生卒年（1913–1988）和四类准则概述。
+- SEP, "Paul Grice"（2026-06-19 修订）：https://plato.stanford.edu/entries/grice/ ，核对生卒年（1913–1988）、英国哲学家身份和四类准则概述。
+- 译名：本项目统一写作「格莱斯」（百度百科词条和商务印书馆 2024 年中译本的编目记录均用此写法）；何自然、冉永平《新编语用学概论》和索振羽《语用学教程》的目录另用一种写法，README 首次出现处已注明又译名。
