@@ -1,8 +1,3 @@
-<!--
-  发布前草稿。仓库地址 https://github.com/ZHUCH-520/grice-skill 是计划地址，尚未创建。
-  各工具的目录和文档链接于 2026-10-31 逐个核对官方文档，来源见文末“资料来源”。
--->
-
 # grice-skill：格莱斯合作原则 Agent Skill
 
 **简体中文** | [English](#english)
